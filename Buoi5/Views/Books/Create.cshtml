@@ -1,0 +1,19 @@
+@model Buoi5.Models.Book
+
+@{
+    ViewData["Title"] = "Thêm mới sách";
+}
+
+<h2 class="page-title">Thêm mới sách</h2>
+
+<form asp-action="Create" method="post" class="form-card">
+    <partial name="_Form" model="Model" />
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Hủy</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

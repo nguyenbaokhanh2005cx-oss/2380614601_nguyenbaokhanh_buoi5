@@ -1,0 +1,53 @@
+@model Buoi5.Models.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="page-header">Trang Chủ</div>
+
+<div class="row">
+    <aside class="col-lg-3 mb-4">
+        <div class="category-panel">
+            <div class="category-title">Chủ đề</div>
+            <ul class="category-list">
+                @foreach (var category in Model.Categories)
+                {
+                    var isActive = Model.SelectedCategoryId == category.CategoryId;
+                    <li>
+                        <a class="category-link @(isActive ? "active" : string.Empty)"
+                           asp-controller="Home"
+                           asp-action="Index"
+                           asp-route-categoryId="@category.CategoryId">
+                            @category.CategoryName (@category.BookCount)
+                        </a>
+                    </li>
+                }
+            </ul>
+            <a class="btn btn-primary btn-sm mt-2" asp-controller="Books" asp-action="Create">Thêm mới</a>
+        </div>
+    </aside>
+
+    <section class="col-lg-9">
+        <div class="book-grid">
+            @foreach (var book in Model.Books)
+            {
+                <div class="book-card">
+                    <div class="book-card-image">
+                        <img src="@book.Image" alt="@book.Title" onerror="this.src='@Url.Content("~/images/placeholder-book.svg")'" />
+                    </div>
+                    <div class="book-card-body">
+                        <div class="book-title">@book.Title</div>
+                        <div class="book-meta">Tác giả: @book.Author</div>
+                        <div class="book-meta">Thể loại: @book.Category?.CategoryName</div>
+                    </div>
+                    <div class="book-card-actions">
+                        <a class="btn btn-outline-primary btn-sm" asp-controller="Books" asp-action="Details" asp-route-id="@book.Id">Chi tiết</a>
+                        <a class="btn btn-outline-secondary btn-sm" asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">Sửa</a>
+                        <a class="btn btn-outline-danger btn-sm" asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id">Xóa</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>

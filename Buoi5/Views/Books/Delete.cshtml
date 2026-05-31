@@ -1,0 +1,24 @@
+@model Buoi5.Models.Book
+
+@{
+    ViewData["Title"] = "Xóa sách";
+}
+
+<h2 class="page-title text-danger">Xóa sách</h2>
+
+<div class="form-card">
+    <p>Bạn có chắc muốn xóa sách <strong>@Model.Title</strong>?</p>
+    <dl class="row">
+        <dt class="col-sm-3">Tác giả</dt>
+        <dd class="col-sm-9">@Model.Author</dd>
+        <dt class="col-sm-3">Thể loại</dt>
+        <dd class="col-sm-9">@Model.Category?.CategoryName</dd>
+        <dt class="col-sm-3">Giá</dt>
+        <dd class="col-sm-9">@Model.Price.ToString("N0") VND</dd>
+    </dl>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Hủy</a>
+    </form>
+</div>
